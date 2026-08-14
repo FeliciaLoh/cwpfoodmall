@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Woodlands 738094 — Food Directory</title>
+<title>Causeway Point — Food Directory</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -66,8 +66,8 @@
   h1{
     font-family:'Archivo Expanded',sans-serif;
     font-weight:800;
-    font-size:clamp(32px,5.2vw,54px);
-    line-height:1.04;
+    font-size:clamp(34px,5.4vw,58px);
+    line-height:1.02;
     margin:0 0 14px;
     letter-spacing:-0.01em;
   }
@@ -75,7 +75,7 @@
   header p.sub{
     color:var(--slate);
     font-size:16px;
-    max-width:540px;
+    max-width:520px;
     line-height:1.55;
     margin:0 0 28px;
   }
@@ -130,7 +130,7 @@
   .cat-btn{
     font-family:'IBM Plex Mono',monospace;
     font-weight:600;
-    font-size:12.5px;
+    font-size:13px;
     background:var(--panel);
     color:var(--slate);
     border:1px solid var(--divider);
@@ -138,7 +138,6 @@
     padding:9px 14px;
     cursor:pointer;
     transition:all .15s;
-    white-space:nowrap;
   }
   .cat-btn:hover{border-color:var(--amber-dim); color:var(--paper);}
   .cat-btn.active{
@@ -169,7 +168,7 @@
   #count{
     font-family:'IBM Plex Mono',monospace;
     font-size:12px; color:var(--slate);
-    margin-bottom:20px;
+    margin-bottom:16px;
     letter-spacing:0.04em;
   }
   .grid{
@@ -207,20 +206,23 @@
   }
   .rating svg{width:13px; height:13px; fill:var(--amber);}
   .rating .count{color:var(--slate); font-weight:400;}
+  .cuisine{
+    font-size:12px; color:var(--slate);
+    padding:3px 8px; background:var(--panel-2); border-radius:5px;
+  }
   .halal{
     font-size:11px; font-weight:600; letter-spacing:0.04em;
     color:var(--teal); border:1px solid rgba(51,209,166,0.35);
     padding:3px 8px; border-radius:5px;
   }
-  .addr{font-size:12.5px; color:var(--slate); line-height:1.4;}
   .card-bottom{
     display:flex; justify-content:space-between; align-items:center;
     margin-top:auto; padding-top:10px; border-top:1px dashed var(--divider);
   }
-  .dist{
+  .unit{
     font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--slate);
   }
-  .hours{font-size:12px; color:var(--slate); text-align:right;}
+  .hours{font-size:12px; color:var(--slate);}
 
   .empty{
     display:none;
@@ -228,6 +230,7 @@
     padding:60px 20px;
     color:var(--slate);
     font-family:'IBM Plex Mono',monospace;
+    grid-column:1/-1;
   }
 
   footer{
@@ -375,13 +378,13 @@
 <body>
 
 <header>
-  <div class="eyebrow"><span class="dot"></span>NEIGHBOURHOOD NOTICEBOARD</div>
-  <h1>Where to eat near<br><span>738094</span>, Woodlands</h1>
-  <p class="sub">A walkable guide to hawker centres, kopitiams, cafés and fast food around Woodlands Drive 72 / the Admiralty precinct. Filter, or just spin the wheel and let it decide.</p>
+  <div class="eyebrow"><span class="dot"></span>DIRECTORY BOARD — LIVE</div>
+  <h1>Where to eat at<br><span>Causeway&nbsp;Point</span></h1>
+  <p class="sub">A guide to the food stalls, restaurants and coffee counters inside the mall at 1 Woodlands Square. Filter by cuisine, or just spin the wheel and let it decide.</p>
   <div class="stat-row">
-    <div class="stat"><span class="num">11</span><span class="lbl">Places listed</span></div>
-    <div class="stat"><span class="num">4</span><span class="lbl">Categories</span></div>
-    <div class="stat"><span class="num">0.3–0.9km</span><span class="lbl">Walking distance</span></div>
+    <div class="stat"><span class="num">14</span><span class="lbl">Places listed</span></div>
+    <div class="stat"><span class="num">6</span><span class="lbl">Cuisine groups</span></div>
+    <div class="stat"><span class="num">6</span><span class="lbl">Halal-certified</span></div>
   </div>
 </header>
 
@@ -389,18 +392,20 @@
   <div class="controls-top">
     <div class="search-wrap">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8792a3" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input id="search" type="text" placeholder="Search by name…">
+      <input id="search" type="text" placeholder="Search by name or cuisine…">
     </div>
     <button id="spinOpenBtn">🎡 Spin the wheel</button>
   </div>
 
   <div class="filter-row">
-    <span class="filter-label">Category</span>
+    <span class="filter-label">Cuisine</span>
     <button class="cat-btn active" data-cat="all">ALL</button>
-    <button class="cat-btn" data-cat="Hawker & Food Court">HAWKER &amp; FOOD COURT</button>
-    <button class="cat-btn" data-cat="Coffee Shop">COFFEE SHOP</button>
+    <button class="cat-btn" data-cat="Chinese">CHINESE</button>
+    <button class="cat-btn" data-cat="Japanese">JAPANESE</button>
+    <button class="cat-btn" data-cat="Western">WESTERN</button>
+    <button class="cat-btn" data-cat="Malay">MALAY</button>
+    <button class="cat-btn" data-cat="Food Court">FOOD COURT</button>
     <button class="cat-btn" data-cat="Cafe">CAFE</button>
-    <button class="cat-btn" data-cat="Fast Food">FAST FOOD</button>
   </div>
 
   <div class="filter-row">
@@ -416,7 +421,7 @@
 </main>
 
 <footer>
-  Listings sourced from Google Places data for locations within roughly 1km of 11 Woodlands Drive 72, Singapore 738094 (Admiralty / Woodlands Drive 72 precinct). Distances are straight-line estimates. Hours and pricing can change — check ahead for the latest.
+  Listings sourced from Google Places data for 1 Woodlands Square, Causeway Point, Singapore 738099. Hours and pricing can change — check ahead for the latest.
 </footer>
 
 <div class="modal-overlay" id="spinModal">
@@ -439,17 +444,20 @@
 
 <script>
 const DATA = [
-  {name:"688 Eating House", category:"Coffee Shop", cuisine:"Zi Char · Coffee Shop", addr:"Blk 688 Woodlands Drive 75", price:"$", rating:4.1, count:360, halal:false, dist:0.3, hours:"5:30 AM – 2:00 AM"},
-  {name:"Kopi & Tarts @ Admiralty Place", category:"Cafe", cuisine:"Café · Bakery", addr:"678A Woodlands Ave 6, #01-30", price:"$$", rating:4.0, count:46, halal:false, dist:0.5, hours:"7:30 AM – 8:00/8:30 PM"},
-  {name:"Tenderbest Makcik Tuckshop", category:"Fast Food", cuisine:"Halal · Fried Chicken · Western", addr:"39 Woodlands Cl, #01-68", price:"$$", rating:4.3, count:1133, halal:true, dist:0.6, hours:"10:30 AM – 10:00/10:30 PM"},
-  {name:"A&W Admiralty Place", category:"Fast Food", cuisine:"Fast Food · Burgers", addr:"678A Woodlands Ave 6, #02-01/02/03", price:"$", rating:4.4, count:325, halal:false, dist:0.6, hours:"10:00 AM – 11:30 PM/12:00 AM"},
-  {name:"Asia Coffee House", category:"Coffee Shop", cuisine:"Zi Char · Mala · Bak Kut Teh", addr:"101 Woodlands Ave 12, #01-16", price:"$", rating:4.4, count:108, halal:false, dist:0.6, hours:"6:00 AM – 12:00 AM"},
-  {name:"Subway - Woodlands Galaxy CC", category:"Fast Food", cuisine:"Fast Food · Sandwiches", addr:"31 Woodlands Ave 6, Galaxy CC", price:"$", rating:5.0, count:2, halal:false, dist:0.6, hours:"9:00 AM – 10:00 PM"},
-  {name:"De Tian Coffee House", category:"Coffee Shop", cuisine:"Multi-cuisine Food Court", addr:"39 Woodlands Cl, MEGA@Woodlands", price:"$", rating:4.1, count:296, halal:false, dist:0.7, hours:"6:00 AM – 1:00 AM"},
-  {name:"7 Stars Coffee Shop", category:"Coffee Shop", cuisine:"Yong Tau Foo · Malay · Zi Char", addr:"Blk 693 Woodlands Ave 6, #01-10", price:"$", rating:3.9, count:543, halal:false, dist:0.7, hours:"Open 24 hours"},
-  {name:"Kampung Admiralty Hawker Centre", category:"Hawker & Food Court", cuisine:"Hawker Centre · 20+ stalls", addr:"676 Woodlands Drive 71", price:"$", rating:4.1, count:4932, halal:false, dist:0.7, hours:"7:00 AM – 10:00 PM"},
-  {name:"McDonald's Woodlands Mart", category:"Fast Food", cuisine:"Fast Food · Burgers", addr:"Block 768 Woodlands Ave 6, Woodlands Mart", price:"$", rating:3.9, count:1305, halal:true, dist:0.9, hours:"Open 24 hours"},
-  {name:"Coffee-Shop at Woodlands 11", category:"Coffee Shop", cuisine:"Zi Char · Western · Indian Muslim", addr:"11 Woodlands Cl, #01-46", price:"$", rating:4.0, count:242, halal:false, dist:0.9, hours:"Open 24 hours"},
+  {name:"Food Republic", floor:"04", unit:"#04-01/02/03/04", cuisine:"Food Court", group:"Food Court", price:"$", rating:3.7, count:1682, halal:false, hours:"10:00 AM – 10:00 PM"},
+  {name:"Cantine by Kopitiam", floor:"03", unit:"#07-03", cuisine:"Food Court", group:"Food Court", price:"$", rating:3.7, count:784, halal:true, hours:"9:00 AM – 10:00 PM"},
+  {name:"The Dim Sum Place", floor:"03", unit:"#03-31", cuisine:"Chinese · Dim Sum", group:"Chinese", price:"$$", rating:4.8, count:3069, halal:true, hours:"10:00/10:30 AM – 9:30/10:00 PM"},
+  {name:"Steak 99", floor:"02", unit:"#02-09C", cuisine:"Western · Steak", group:"Western", price:"$$", rating:4.5, count:645, halal:false, hours:"11:30 AM – 9:30 PM"},
+  {name:"Red Ginger", floor:"02", unit:"#02-05a", cuisine:"Malay · Nasi Padang", group:"Malay", price:"$", rating:3.8, count:114, halal:true, hours:"9:00 AM – 9:00 PM"},
+  {name:"luckin coffee", floor:"02", unit:"#02-K10", cuisine:"Cafe · Coffee", group:"Cafe", price:"$", rating:3.6, count:29, halal:false, hours:"10:00 AM – 10:30 PM"},
+  {name:"Pepper Kitchen", floor:"04", unit:"#04-01", cuisine:"Western · Pepper Rice", group:"Western", price:"$$", rating:4.4, count:375, halal:false, hours:"10:00 AM – 10:00 PM"},
+  {name:"Yuen Kee Dumpling", floor:"04", unit:"#04-01 to 04", cuisine:"Chinese · Dumplings", group:"Chinese", price:"$$", rating:3.4, count:25, halal:false, hours:"9:00 AM – 9:06 PM"},
+  {name:"Poulet", floor:"B1", unit:"#B1-25", cuisine:"Western · French Chicken", group:"Western", price:"$$", rating:4.7, count:9099, halal:false, hours:"11:30 AM – 10:00 PM"},
+  {name:"Eat 3 Bowls", floor:"B1", unit:"#B1-24", cuisine:"Chinese · Taiwanese", group:"Chinese", price:"$$", rating:4.6, count:1028, halal:false, hours:"10:00 AM – 10:00 PM"},
+  {name:"Chicken Ka Kee", floor:"B1", unit:"#B1-16", cuisine:"Chinese · Chicken Rice", group:"Chinese", price:"$$", rating:4.6, count:1145, halal:true, hours:"11:00 AM – 8:30 PM"},
+  {name:"Tonkatsu ENbiton", floor:"B1", unit:"#B1-19", cuisine:"Japanese · Tonkatsu", group:"Japanese", price:"$$", rating:4.6, count:608, halal:false, hours:"11:00 AM – 10:00 PM"},
+  {name:"NiKU iKU", floor:"B1", unit:"#B1-K13", cuisine:"Japanese · Yakiniku", group:"Japanese", price:"$", rating:4.7, count:115, halal:false, hours:"11:00 AM – 9:45 PM"},
+  {name:"Munchi Pancakes", floor:"B1", unit:"#B1-K01", cuisine:"Cafe · Snacks", group:"Cafe", price:"$", rating:4.9, count:2404, halal:false, hours:"8:00 AM – 9:30 PM"},
 ];
 
 const grid = document.getElementById('grid');
@@ -469,11 +477,11 @@ function starSvg(){
 function getFiltered(){
   const q = state.query.trim().toLowerCase();
   return DATA.filter(d=>{
-    if(state.cat !== 'all' && d.category !== state.cat) return false;
+    if(state.cat !== 'all' && d.group !== state.cat) return false;
     if(state.halal && !d.halal) return false;
     if(q && !(d.name.toLowerCase().includes(q) || d.cuisine.toLowerCase().includes(q))) return false;
     return true;
-  }).sort((a,b)=>a.dist-b.dist);
+  });
 }
 
 function render(){
@@ -494,11 +502,11 @@ function render(){
       </div>
       <div class="meta-row">
         <div class="rating">${starSvg()}${d.rating.toFixed(1)} <span class="count">(${d.count.toLocaleString()})</span></div>
+        <div class="cuisine">${d.cuisine}</div>
         ${d.halal ? '<div class="halal">HALAL</div>' : ''}
       </div>
-      <div class="addr">${d.cuisine}<br>${d.addr}</div>
       <div class="card-bottom">
-        <div class="dist flap">~${d.dist.toFixed(1)} km</div>
+        <div class="unit flap">${d.unit}</div>
         <div class="hours">${d.hours}</div>
       </div>
     `;
@@ -584,6 +592,7 @@ function openModal(){
   wheelDisc.style.transition = 'none';
   wheelDisc.style.transform = `rotate(${wheelRotation}deg)`;
   buildWheel(currentFiltered);
+  // force reflow so the 'none' transition takes effect before re-enabling
   void wheelDisc.offsetWidth;
   wheelDisc.style.transition = '';
   spinModal.classList.add('open');
@@ -603,7 +612,7 @@ function spin(){
   const seg = 360 / n;
   const targetIdx = Math.floor(Math.random() * n);
   const mid = targetIdx*seg + seg/2;
-  const extraSpins = 5 + Math.floor(Math.random()*2);
+  const extraSpins = 5 + Math.floor(Math.random()*2); // 5-6 full turns
   const finalRotation = wheelRotation - (wheelRotation % 360) + extraSpins*360 + (360 - mid);
 
   wheelRotation = finalRotation;
@@ -612,7 +621,7 @@ function spin(){
   setTimeout(()=>{
     const winner = currentFiltered[targetIdx];
     winnerName.textContent = winner.name;
-    winnerMeta.textContent = `${winner.cuisine} · ~${winner.dist.toFixed(1)} km · ${winner.hours}`;
+    winnerMeta.textContent = `${winner.cuisine} · ${winner.unit} · ${winner.hours}`;
     winnerBox.classList.add('show');
 
     document.querySelectorAll('.card').forEach(c=>{
