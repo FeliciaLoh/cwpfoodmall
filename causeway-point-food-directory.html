@@ -1,364 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Causeway Point — Food Directory</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#12161d;
-    --panel:#1c232d;
-    --panel-2:#232b37;
-    --amber:#f5a623;
-    --amber-dim:#8a6420;
-    --teal:#33d1a6;
-    --paper:#eceef2;
-    --slate:#8792a3;
-    --divider:#2b3340;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:
-      radial-gradient(1200px 600px at 15% -10%, #1a2130 0%, transparent 60%),
-      var(--ink);
-    color:var(--paper);
-    font-family:'Inter',sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
+# Food Directories
 
-  /* ===== Split-flap unit ===== */
-  .flap{
-    display:inline-flex;
-    font-family:'IBM Plex Mono',monospace;
-    font-weight:600;
-    letter-spacing:0.04em;
-    background:linear-gradient(180deg,#232b37 0%, #1a212b 100%);
-    border:1px solid var(--divider);
-    border-radius:4px;
-    padding:2px 8px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 2px rgba(0,0,0,0.4);
-    position:relative;
-  }
-  .flap::after{
-    content:"";
-    position:absolute; left:0; right:0; top:50%;
-    height:1px; background:rgba(0,0,0,0.5);
-  }
+Two static HTML prototypes:
 
-  /* ===== Header / hero ===== */
-  header{
-    padding:56px 24px 28px;
-    max-width:1180px;
-    margin:0 auto;
-    border-bottom:1px solid var(--divider);
-  }
-  .eyebrow{
-    display:flex; align-items:center; gap:10px;
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
-    color:var(--amber);
-    margin-bottom:18px;
-  }
-  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);animation:pulse 2s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+- `index.html` — landing page linking to both
+- `causeway-point.html` — mall directory board for Causeway Point (floor filters, split-flap unit tags, halal toggle, spin-the-wheel picker)
+- `woodlands-738094.html` — neighbourhood eatery guide near Woodlands Drive 72 / postal code 738094 (category filters, distance sort, spin-the-wheel picker)
 
-  h1{
-    font-family:'Archivo Expanded',sans-serif;
-    font-weight:800;
-    font-size:clamp(34px,5.4vw,58px);
-    line-height:1.02;
-    margin:0 0 14px;
-    letter-spacing:-0.01em;
-  }
-  h1 span{color:var(--amber);}
-  header p.sub{
-    color:var(--slate);
-    font-size:16px;
-    max-width:520px;
-    line-height:1.55;
-    margin:0 0 28px;
-  }
+No build step, no dependencies — plain HTML/CSS/JS.
 
-  .stat-row{display:flex; gap:28px; flex-wrap:wrap; margin-bottom:8px;}
-  .stat{display:flex; flex-direction:column; gap:4px;}
-  .stat .num{font-family:'IBM Plex Mono',monospace; font-size:22px; font-weight:600; color:var(--paper);}
-  .stat .lbl{font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--slate);}
+## Deploy: GitHub → Vercel
 
-  /* ===== Controls ===== */
-  .controls{
-    max-width:1180px; margin:0 auto;
-    padding:28px 24px 0;
-    display:flex; flex-direction:column; gap:16px;
-  }
-  .search-wrap{position:relative; max-width:420px;}
-  input#search{
-    width:100%;
-    background:var(--panel);
-    border:1px solid var(--divider);
-    border-radius:8px;
-    color:var(--paper);
-    font-family:'Inter',sans-serif;
-    font-size:14px;
-    padding:12px 14px 12px 38px;
-    outline:none;
-    transition:border-color .15s;
-  }
-  input#search:focus{border-color:var(--amber);}
-  .search-wrap svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); opacity:0.5;}
+1. **Create a GitHub repo**
+   - Unzip this folder locally.
+   - In the unzipped folder, run:
+     ```
+     git init
+     git add .
+     git commit -m "Initial commit"
+     ```
+   - Create a new empty repo on GitHub (no README/gitignore), then:
+     ```
+     git remote add origin https://github.com/<your-username>/<repo-name>.git
+     git branch -M main
+     git push -u origin main
+     ```
 
-  .filter-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
-  .filter-label{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--slate); margin-right:4px;}
-  .floor-btn{
-    font-family:'IBM Plex Mono',monospace;
-    font-weight:600;
-    font-size:13px;
-    background:var(--panel);
-    color:var(--slate);
-    border:1px solid var(--divider);
-    border-radius:6px;
-    padding:9px 14px;
-    cursor:pointer;
-    transition:all .15s;
-  }
-  .floor-btn:hover{border-color:var(--amber-dim); color:var(--paper);}
-  .floor-btn.active{
-    background:var(--amber);
-    color:#1a1305;
-    border-color:var(--amber);
-  }
+2. **Import into Vercel**
+   - Go to [vercel.com/new](https://vercel.com/new) and sign in with GitHub.
+   - Select the repo you just pushed.
+   - Framework preset: choose **Other** (it's a plain static site — no build command, no output directory needed).
+   - Click **Deploy**.
 
-  .tag-btn{
-    font-family:'Inter',sans-serif;
-    font-size:13px;
-    background:transparent;
-    color:var(--slate);
-    border:1px solid var(--divider);
-    border-radius:20px;
-    padding:8px 14px;
-    cursor:pointer;
-    transition:all .15s;
-  }
-  .tag-btn:hover{color:var(--paper); border-color:#3a4453;}
-  .tag-btn.active{
-    background:rgba(51,209,166,0.12);
-    color:var(--teal);
-    border-color:var(--teal);
-  }
+3. **Done**
+   - Vercel gives you a live URL like `your-project.vercel.app`.
+   - `/` → landing page
+   - `/causeway-point` → Causeway Point directory
+   - `/woodlands-738094` → Woodlands directory
 
-  /* ===== Grid ===== */
-  main{max-width:1180px; margin:0 auto; padding:28px 24px 80px;}
-  #count{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px; color:var(--slate);
-    margin-bottom:16px;
-    letter-spacing:0.04em;
-  }
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:14px;
-  }
-  .card{
-    background:var(--panel);
-    border:1px solid var(--divider);
-    border-radius:10px;
-    padding:18px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    transition:transform .15s, border-color .15s, box-shadow .15s;
-  }
-  .card:hover{
-    transform:translateY(-3px);
-    border-color:var(--amber-dim);
-    box-shadow:0 10px 24px rgba(0,0,0,0.35);
-  }
-  .card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
-  .card-top .name{font-family:'Archivo Expanded',sans-serif; font-weight:700; font-size:17px; line-height:1.25;}
-  .price{font-family:'IBM Plex Mono',monospace; color:var(--amber); font-size:13px; white-space:nowrap;}
-
-  .meta-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
-  .rating{
-    display:flex; align-items:center; gap:5px;
-    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600;
-  }
-  .rating svg{width:13px; height:13px; fill:var(--amber);}
-  .rating .count{color:var(--slate); font-weight:400;}
-  .cuisine{
-    font-size:12px; color:var(--slate);
-    padding:3px 8px; background:var(--panel-2); border-radius:5px;
-  }
-  .halal{
-    font-size:11px; font-weight:600; letter-spacing:0.04em;
-    color:var(--teal); border:1px solid rgba(51,209,166,0.35);
-    padding:3px 8px; border-radius:5px;
-  }
-  .card-bottom{
-    display:flex; justify-content:space-between; align-items:center;
-    margin-top:auto; padding-top:10px; border-top:1px dashed var(--divider);
-  }
-  .unit{
-    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--slate);
-  }
-  .hours{font-size:12px; color:var(--slate);}
-
-  .empty{
-    display:none;
-    text-align:center;
-    padding:60px 20px;
-    color:var(--slate);
-    font-family:'IBM Plex Mono',monospace;
-    grid-column:1/-1;
-  }
-
-  footer{
-    max-width:1180px; margin:0 auto; padding:24px 24px 50px;
-    color:var(--slate); font-size:12px;
-    border-top:1px solid var(--divider);
-  }
-
-  @media (max-width:520px){
-    header{padding:40px 18px 24px;}
-    .controls,main,footer{padding-left:18px; padding-right:18px;}
-    .stat-row{gap:20px;}
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="eyebrow"><span class="dot"></span>DIRECTORY BOARD — LIVE</div>
-  <h1>Where to eat at<br><span>Causeway&nbsp;Point</span></h1>
-  <p class="sub">A floor-by-floor guide to the food stalls, restaurants and coffee counters inside the mall at 1 Woodlands Square. Filter by level or search by name and cuisine.</p>
-  <div class="stat-row">
-    <div class="stat"><span class="num">14</span><span class="lbl">Places listed</span></div>
-    <div class="stat"><span class="num">4</span><span class="lbl">Floors covered</span></div>
-    <div class="stat"><span class="num">6</span><span class="lbl">Halal-certified</span></div>
-  </div>
-</header>
-
-<div class="controls">
-  <div class="search-wrap">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8792a3" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input id="search" type="text" placeholder="Search by name or cuisine…">
-  </div>
-
-  <div class="filter-row">
-    <span class="filter-label">Floor</span>
-    <button class="floor-btn active" data-floor="all">ALL</button>
-    <button class="floor-btn" data-floor="B1">B1</button>
-    <button class="floor-btn" data-floor="02">LVL 02</button>
-    <button class="floor-btn" data-floor="03">LVL 03</button>
-    <button class="floor-btn" data-floor="04">LVL 04</button>
-  </div>
-
-  <div class="filter-row">
-    <span class="filter-label">Filter</span>
-    <button class="tag-btn" data-halal="true">Halal only</button>
-  </div>
-</div>
-
-<main>
-  <div id="count"></div>
-  <div class="grid" id="grid"></div>
-  <div class="empty" id="empty">NO MATCHES — try clearing a filter</div>
-</main>
-
-<footer>
-  Listings sourced from Google Places data for 1 Woodlands Square, Causeway Point, Singapore 738099. Hours and pricing can change — check ahead for the latest.
-</footer>
-
-<script>
-const DATA = [
-  {name:"Food Republic", floor:"04", unit:"#04-01/02/03/04", cuisine:"Food Court", price:"$", rating:3.7, count:1682, halal:false, hours:"10:00 AM – 10:00 PM"},
-  {name:"Cantine by Kopitiam", floor:"03", unit:"#07-03", cuisine:"Food Court", price:"$", rating:3.7, count:784, halal:true, hours:"9:00 AM – 10:00 PM"},
-  {name:"The Dim Sum Place", floor:"03", unit:"#03-31", cuisine:"Chinese · Dim Sum", price:"$$", rating:4.8, count:3069, halal:true, hours:"10:00/10:30 AM – 9:30/10:00 PM"},
-  {name:"Steak 99", floor:"02", unit:"#02-09C", cuisine:"Western · Steak", price:"$$", rating:4.5, count:645, halal:false, hours:"11:30 AM – 9:30 PM"},
-  {name:"Red Ginger", floor:"02", unit:"#02-05a", cuisine:"Malay · Nasi Padang", price:"$", rating:3.8, count:114, halal:true, hours:"9:00 AM – 9:00 PM"},
-  {name:"luckin coffee", floor:"02", unit:"#02-K10", cuisine:"Cafe · Coffee", price:"$", rating:3.6, count:29, halal:false, hours:"10:00 AM – 10:30 PM"},
-  {name:"Pepper Kitchen", floor:"04", unit:"#04-01", cuisine:"Western · Pepper Rice", price:"$$", rating:4.4, count:375, halal:false, hours:"10:00 AM – 10:00 PM"},
-  {name:"Yuen Kee Dumpling", floor:"04", unit:"#04-01 to 04", cuisine:"Chinese · Dumplings", price:"$$", rating:3.4, count:25, halal:false, hours:"9:00 AM – 9:06 PM"},
-  {name:"Poulet", floor:"B1", unit:"#B1-25", cuisine:"French · Chicken", price:"$$", rating:4.7, count:9099, halal:false, hours:"11:30 AM – 10:00 PM"},
-  {name:"Eat 3 Bowls", floor:"B1", unit:"#B1-24", cuisine:"Taiwanese", price:"$$", rating:4.6, count:1028, halal:false, hours:"10:00 AM – 10:00 PM"},
-  {name:"Chicken Ka Kee", floor:"B1", unit:"#B1-16", cuisine:"Chinese · Chicken Rice", price:"$$", rating:4.6, count:1145, halal:true, hours:"11:00 AM – 8:30 PM"},
-  {name:"Tonkatsu ENbiton", floor:"B1", unit:"#B1-19", cuisine:"Japanese · Tonkatsu", price:"$$", rating:4.6, count:608, halal:false, hours:"11:00 AM – 10:00 PM"},
-  {name:"NiKU iKU", floor:"B1", unit:"#B1-K13", cuisine:"Japanese · Yakiniku", price:"$", rating:4.7, count:115, halal:false, hours:"11:00 AM – 9:45 PM"},
-  {name:"Munchi Pancakes", floor:"B1", unit:"#B1-K01", cuisine:"Snacks · Dessert", price:"$", rating:4.9, count:2404, halal:false, hours:"8:00 AM – 9:30 PM"},
-];
-
-const grid = document.getElementById('grid');
-const countEl = document.getElementById('count');
-const emptyEl = document.getElementById('empty');
-const searchInput = document.getElementById('search');
-const floorBtns = document.querySelectorAll('.floor-btn');
-const halalBtn = document.querySelector('.tag-btn[data-halal]');
-
-let state = { floor:'all', halal:false, query:'' };
-
-function starSvg(){
-  return '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>';
-}
-
-function render(){
-  const q = state.query.trim().toLowerCase();
-  const filtered = DATA.filter(d=>{
-    if(state.floor !== 'all' && d.floor !== state.floor) return false;
-    if(state.halal && !d.halal) return false;
-    if(q && !(d.name.toLowerCase().includes(q) || d.cuisine.toLowerCase().includes(q))) return false;
-    return true;
-  });
-
-  countEl.textContent = filtered.length + ' place' + (filtered.length===1?'':'s') + ' showing';
-  grid.innerHTML = '';
-  emptyEl.style.display = filtered.length ? 'none' : 'block';
-
-  filtered.forEach(d=>{
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="card-top">
-        <div class="name">${d.name}</div>
-        <div class="price">${d.price}</div>
-      </div>
-      <div class="meta-row">
-        <div class="rating">${starSvg()}${d.rating.toFixed(1)} <span class="count">(${d.count.toLocaleString()})</span></div>
-        <div class="cuisine">${d.cuisine}</div>
-        ${d.halal ? '<div class="halal">HALAL</div>' : ''}
-      </div>
-      <div class="card-bottom">
-        <div class="unit flap">${d.unit}</div>
-        <div class="hours">${d.hours}</div>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-floorBtns.forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    floorBtns.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    state.floor = btn.dataset.floor;
-    render();
-  });
-});
-
-halalBtn.addEventListener('click', ()=>{
-  state.halal = !state.halal;
-  halalBtn.classList.toggle('active', state.halal);
-  render();
-});
-
-searchInput.addEventListener('input', (e)=>{
-  state.query = e.target.value;
-  render();
-});
-
-render();
-</script>
-
-</body>
-</html>
+Every future `git push` to `main` auto-redeploys.
